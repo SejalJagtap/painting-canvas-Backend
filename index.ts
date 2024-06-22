@@ -5,7 +5,7 @@ const app = express()
 
 const server = http.createServer(app)
 
-const { Server } = require('socket.io');
+const { Server, Socket } = require('socket.io');
 
 
 const io = new Server(server, {
@@ -24,7 +24,7 @@ type DrawLine = {
     color: string
 }
 
-io.on('connection', (socket) => {
+io.on('connection', (socket: typeof Socket) => {
     console.log("connected")
     socket.on('draw-line', ({ prevPoint, currentPoint, color }: DrawLine) => {
         socket.broadcast.emit('draw-line', { prevPoint, currentPoint, color })
